@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './_App.scss';
 import Favorite from '../Favorite/Favorite';
 import Button from '../Button/Button';
 import CardContainer from '../CardContainer/CardContainer';
