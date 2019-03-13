@@ -1,0 +1,15 @@
+.card-category-buttons {
+    background-color: $main-button-color-inactive;
+    border-radius: 4px;
+    color: #31394D;
+    font-family: $main-font;
+    margin: 20px;
+    padding: 10px;
+    width: 100px;
+        &:hover {
+            background-color: $main-button-color-active;
+            box-shadow: $active-button-box-shadow;
+            cursor: pointer;
+            font-weight: 600;
+        }
+}

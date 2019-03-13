@@ -8,9 +8,9 @@ export default class Button extends Component {
     render() {
         return (
             <div>
-                <button>people</button>
-                <button>planets</button>
-                <button>vehicles</button>
+                <button className="card-category-buttons">people</button>
+                <button className="card-category-buttons">planets</button>
+                <button className="card-category-buttons">vehicles</button>
             </div>
         )
     }
