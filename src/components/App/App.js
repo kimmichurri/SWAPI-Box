@@ -9,16 +9,45 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      handle: ''
+      openingFilm: ''
     }
   }
 
+  componentDidMount() {
+    const url = 'https://swapi.co/api/';
+    fetch(url)
+      .then(response => response.json())
+      .then(data => this.getFilms(data.films))
+  }
 
-  // componentDidMount(handle) {
-  //   const url = `https://swapi.co/api/${this.state.handle}`
+  getFilms = (films) => {
+    return fetch(films)
+      .then(response => response.json())
+      .then(allFilms => this.firstFilm(allFilms))
+  }
+
+  firstFilm = (allFilms) => {
+    let randomIndex = Math.floor(Math.random() * Math.floor(7))
+    let selectedFilm = allFilms.results[randomIndex]
+    this.setState({
+      openingFilm: {
+        title: selectedFilm.title, 
+        date: selectedFilm.release_date,
+        crawl: selectedFilm.opening_crawl
+      }
+    })
+    console.log(allFilms.results[randomIndex])
+  }
+
+  // componentDidMount() {
+  // let randomNumber = Math.floor(Math.random() * Math.floor(7) + 1)
+  //   const url = `https://swapi.co/api/films/${randomNumber}`
   //   fetch(url)
   //     .then(response => response.json())
   //     .then(data => console.log(data))
+    //  this.setState({
+    //   openingFilm: {title: data.title, date: data.release_date, crawl: data.opening_crawl}
+    // })
   // }
 
   render() {
