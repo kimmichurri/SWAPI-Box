@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './_App.scss';
+import Header from '../Header/Header';
 import Favorite from '../Favorite/Favorite';
 import Button from '../Button/Button';
 import CardContainer from '../CardContainer/CardContainer';
@@ -23,12 +24,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
           <Favorite />
-          SWAPI-Box
+          <Header />
           <Button />
           <CardContainer />
-        </header>
+        
       </div>
     );
   }
