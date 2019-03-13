@@ -3,7 +3,7 @@ import Card from '../Card/Card';
 
 export default function CardContainer() {
     return (
-        <div>
+        <div className="card-container">
             <p>cards here!</p>
             <Card />
         </div>

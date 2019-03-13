@@ -1,11 +1,17 @@
 .favorite-button {
     background-color: $dark-blue;
+    border: 1px solid $dark-blue;
     border-radius: 4px;
-    color: #FFF;
+    color: $white;
     display: flex;
     font-family: $main-font;
     justify-content: center;
     margin: 20px;
     padding: 10px;
     width: 100px;
+        &:hover {
+            background-color: $dark-blue-active;
+            cursor: pointer;
+            font-weight: 600;
+        }
 }
