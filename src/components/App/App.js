@@ -13,12 +13,12 @@ class App extends Component {
   }
 
 
-  componentDidMount(handle) {
-    const url = `https://swapi.co/api/${this.state.handle}`
-    fetch(url)
-      .then(response => response.json())
-      .then(data => console.log(data))
-  }
+  // componentDidMount(handle) {
+  //   const url = `https://swapi.co/api/${this.state.handle}`
+  //   fetch(url)
+  //     .then(response => response.json())
+  //     .then(data => console.log(data))
+  // }
 
   render() {
     return (
