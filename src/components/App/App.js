@@ -4,12 +4,17 @@ import Header from '../Header/Header';
 import Favorite from '../Favorite/Favorite';
 import Button from '../Button/Button';
 import CardContainer from '../CardContainer/CardContainer';
+import ApiCalls from '../Helper/ApiCalls';
+let apiCalls = new ApiCalls;
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      openingFilm: ''
+      openingFilm: '',
+      people: [],
+      plants: [],
+      vehicles: []
     }
   }
 
@@ -36,28 +41,26 @@ class App extends Component {
         crawl: selectedFilm.opening_crawl
       }
     })
-    console.log(allFilms.results[randomIndex])
+    // console.log(allFilms.results[randomIndex])
   }
 
-  // componentDidMount() {
-  // let randomNumber = Math.floor(Math.random() * Math.floor(7) + 1)
-  //   const url = `https://swapi.co/api/films/${randomNumber}`
-  //   fetch(url)
-  //     .then(response => response.json())
-  //     .then(data => console.log(data))
-    //  this.setState({
-    //   openingFilm: {title: data.title, date: data.release_date, crawl: data.opening_crawl}
-    // })
-  // }
+  getPeople = async () => {
+    this.setState({
+      people: await apiCalls.findPeople()
+    })
+    // fetch(url)
+    //   .then(response => response.json())
+    //   .then(data => apiCalls.findPeople(data))
+    //   .then(giantObject => console.log(giantObject))
+  }
 
   render() {
     return (
       <div className="app">
           <Favorite />
           <Header />
-          <Button />
+          <Button getPeople={this.getPeople}/>
           <CardContainer />
-        
       </div>
     );
   }

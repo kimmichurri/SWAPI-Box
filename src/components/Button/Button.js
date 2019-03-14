@@ -1,17 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class Button extends Component {
-    constructor() {
-        super();
-    }
+const Button = ({ getPeople }) => {
 
-    render() {
         return (
             <div>
-                <button className="card-category-buttons">people</button>
+                <button onClick={getPeople} className="card-category-buttons">people</button>
                 <button className="card-category-buttons">planets</button>
                 <button className="card-category-buttons">vehicles</button>
             </div>
         )
-    }
 }
+
+export default Button
