@@ -1,6 +1,7 @@
 const peopleCleaner = (compiledData) => {
+    console.log('compiled data', compiledData)
     let cleaned = compiledData.map((person) => {
-        console.log(person)
+        console.log('person', person)
         return {
             name: person.name,
             homeworld: person.homeworld,
@@ -8,7 +9,7 @@ const peopleCleaner = (compiledData) => {
             population: person.population
         }
     })
-    console.log(cleaned)
+    console.log('cleaned', cleaned)
     return cleaned;
 }
 

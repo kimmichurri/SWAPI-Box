@@ -46,7 +46,7 @@ class App extends Component {
 
   getPeople = async () => {
     this.setState({
-      people: await apiCalls.findPeople()
+      people: await apiCalls.findPeopleInfo()
     })
     // fetch(url)
     //   .then(response => response.json())

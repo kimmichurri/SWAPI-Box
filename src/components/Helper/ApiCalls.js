@@ -4,15 +4,15 @@ export default class ApiCalls {
     constructor() {
 
     }
-    findPeople = () => {
+    findPeopleInfo = () => {
         return fetch('https://swapi.co/api/people')
             .then(response => response.json())
-            .then(data => this.fetchPeople(data.results))
+            .then(data => this.findHomeworld(data.results))
             .then(uniquePeople => this.findSpecies(uniquePeople))
             .then(compiledData => peopleCleaner(compiledData))
     }
     
-    fetchPeople = (individualPeople) => {
+    findHomeworld = (individualPeople) => {
         const unresolvedPeople = individualPeople.map((person) => {
             return fetch(person.homeworld)
                 .then(response => response.json())
@@ -21,8 +21,8 @@ export default class ApiCalls {
         return Promise.all(unresolvedPeople);
     }
 
-    findSpecies = (uniquePeople) => {
-        const unresolvedSpecies= uniquePeople.map((person) => {
+    findSpecies = (individualPeople) => {
+        const unresolvedSpecies= individualPeople.map((person) => {
             return fetch(person.species)
                 .then(response => response.json())
                 .then(species => ({...person, species: species.name}))
