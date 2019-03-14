@@ -3,6 +3,7 @@ import './_App.scss';
 import Header from '../Header/Header';
 import Favorite from '../Favorite/Favorite';
 import Button from '../Button/Button';
+import Scroll from '../Scroll/Scroll';
 import CardContainer from '../CardContainer/CardContainer';
 import ApiCalls from '../Helper/ApiCalls';
 let apiCalls = new ApiCalls;
@@ -11,7 +12,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      openingFilm: '',
+      openingFilm: {},
       people: [],
       plants: [],
       vehicles: []
@@ -41,25 +42,22 @@ class App extends Component {
         crawl: selectedFilm.opening_crawl
       }
     })
-    // console.log(allFilms.results[randomIndex])
   }
 
   getPeople = async () => {
     this.setState({
       people: await apiCalls.findPeopleInfo()
     })
-    // fetch(url)
-    //   .then(response => response.json())
-    //   .then(data => apiCalls.findPeople(data))
-    //   .then(giantObject => console.log(giantObject))
   }
 
   render() {
+    const { openingFilm } = this.state
     return (
       <div className="app">
           <Favorite />
           <Header />
           <Button getPeople={this.getPeople}/>
+          <Scroll openingFilm={openingFilm}/>
           <CardContainer />
       </div>
     );

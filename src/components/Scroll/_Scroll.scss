@@ -1,0 +1,33 @@
+.scroll-header {
+    font-size: 80px;
+}
+
+.scroll-text {
+    font-size: 60px;
+}
+
+.scroll-container {
+    color: $white;
+    display: flex;
+    font-family: $container-header-font;
+    height: 800px;
+    justify-content: center;
+    perspective: 200px;
+}
+
+.scroll {
+    position: relative;
+    transform-origin: 50% 100%;
+    animation: scroll 90s linear;
+}
+
+@keyframes scroll {
+    0% {
+        top: 0;
+        transform: rotateX(20deg) translateZ(0);
+    }
+    100% {
+        top: -6000px;
+        transform: rotateX(25deg) translateZ(-2500px);
+    }
+}
