@@ -4,11 +4,13 @@
     border-radius: 4px;
     color: $white;
     display: flex;
+    font-size: $button-font-size;
     font-family: $main-font;
+    height: $button-height;
     justify-content: center;
     margin: 20px;
     padding: 10px;
-    width: 100px;
+    width: $alternate-button-width;
         &:hover {
             background-color: $dark-blue-active;
             cursor: pointer;
