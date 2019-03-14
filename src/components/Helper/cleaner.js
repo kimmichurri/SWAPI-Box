@@ -1,5 +1,5 @@
-const peopleCleaner = (giantObj) => {
-    let cleaned = giantObj.map((person) => {
+const peopleCleaner = (compiledData) => {
+    let cleaned = compiledData.map((person) => {
         console.log(person)
         return {
             name: person.name,

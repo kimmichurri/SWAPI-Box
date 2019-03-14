@@ -9,7 +9,7 @@ export default class ApiCalls {
             .then(response => response.json())
             .then(data => this.fetchPeople(data.results))
             .then(uniquePeople => this.findSpecies(uniquePeople))
-            .then(giantObject => peopleCleaner(giantObject))
+            .then(compiledData => peopleCleaner(compiledData))
     }
     
     fetchPeople = (individualPeople) => {
