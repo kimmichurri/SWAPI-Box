@@ -5,8 +5,8 @@ import Favorite from '../Favorite/Favorite';
 import Button from '../Button/Button';
 import Scroll from '../Scroll/Scroll';
 import CardContainer from '../CardContainer/CardContainer';
-import ApiCalls from '../Helper/ApiCalls';
-let apiCalls = new ApiCalls;
+import { fetchAnything } from '../Helper/fetchAnything';
+import { peopleCleaner, findHomeworld, findSpecies } from '../Helper/cleaner';
 
 class App extends Component {
   constructor() {
@@ -44,12 +44,13 @@ class App extends Component {
     })
   }
 
-  getPeople = async () => {
-    //fetch url of people as my data
-    
-    this.setState({
-      people: await apiCalls.findPeopleInfo()
-    })
+  getPeople =  () => {
+    const url = 'https://swapi.co/api/people'
+      fetchAnything(url)
+      .then(data => findHomeworld(data.results))
+      .then(uniquePeople => findSpecies(uniquePeople))
+      .then(getCleanedPeople => peopleCleaner(getCleanedPeople))
+      .then(cleanPeople => this.setState({people: cleanPeople}))
   }
 
   render() {
