@@ -15,26 +15,18 @@ class App extends Component {
       openingFilm: {},
       people: [],
       plants: [],
-      vehicles: []
+      vehicles: [],
+      filmNumber: Math.floor((Math.random() * 7) + 1)
     }
   }
 
   componentDidMount() {
-    const url = 'https://swapi.co/api/';
-    fetch(url)
-      .then(response => response.json())
-      .then(data => this.getFilms(data.films))
+    const url = `https://swapi.co/api/films/${this.state.filmNumber}`;
+    fetchAnything(url)
+      .then(selectedFilm => this.firstFilm(selectedFilm))
   }
 
-  getFilms = (films) => {
-    return fetch(films)
-      .then(response => response.json())
-      .then(allFilms => this.firstFilm(allFilms))
-  }
-
-  firstFilm = (allFilms) => {
-    let randomIndex = Math.floor(Math.random() * Math.floor(7))
-    let selectedFilm = allFilms.results[randomIndex]
+  firstFilm = (selectedFilm) => {
     this.setState({
       openingFilm: {
         title: selectedFilm.title, 
