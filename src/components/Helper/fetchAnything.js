@@ -1,9 +1,13 @@
 const fetchAnything = (url) => {
-    console.log('in fetch') 
-    const fetchCall = fetch(url)
-        .then(response => response.json())
-        .catch(error => error.message)
-        return fetchCall
+    return fetch(url)
+        .then(response => { 
+                if(!response.ok) {
+                    throw new Error('Response not okay')
+                }
+                return response.json()
+            })
 }
 
 export { fetchAnything } 
+
+//in whichever component you are calling this in, make sure you mock out this fetchAnything function so that you can assert this it was called
