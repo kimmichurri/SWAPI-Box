@@ -1,4 +1,9 @@
 .card-container {
+    background-color: $dark-blue-active;
     color: $white;
+    display: flex;
+    flex-wrap: wrap;
     font-family: $container-header-font;
+    margin: auto;
+    padding: 20px;
 }
