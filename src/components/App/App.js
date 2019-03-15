@@ -15,13 +15,16 @@ class App extends Component {
       openingFilm: {},
       people: [],
       plants: [],
-      vehicles: [],
-      filmNumber: Math.floor((Math.random() * 7) + 1)
+      vehicles: []
     }
   }
 
+  randomFilmNumber = () => {
+    return Math.floor((Math.random() * 7) + 1);
+  }
+
   componentDidMount() {
-    const url = `https://swapi.co/api/films/${this.state.filmNumber}`;
+    const url = `https://swapi.co/api/films/${this.randomFilmNumber()}`;
     fetchAnything(url)
       .then(selectedFilm => this.firstFilm(selectedFilm))
   }
