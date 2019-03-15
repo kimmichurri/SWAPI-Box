@@ -45,6 +45,8 @@ class App extends Component {
   }
 
   getPeople = async () => {
+    //fetch url of people as my data
+    
     this.setState({
       people: await apiCalls.findPeopleInfo()
     })
@@ -52,13 +54,14 @@ class App extends Component {
 
   render() {
     const { openingFilm } = this.state
+    const { people } = this.state
     return (
       <div className="app">
           <Favorite />
           <Header />
           <Button getPeople={this.getPeople}/>
           <Scroll openingFilm={openingFilm}/>
-          <CardContainer />
+          <CardContainer people={people}/>
       </div>
     );
   }

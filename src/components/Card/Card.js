@@ -1,9 +1,12 @@
 import React from 'react';
 
-export default function Card() {
+export default function Card({ homeworld, name, population, species}) {
     return (
         <div className="individual-card">
-            <p>a card, yo!</p>
+            <h4>{name}</h4>
+            <p>{species}</p>
+            <p>{homeworld}</p>
+            <p>{population}</p>
         </div>
     )
 }
