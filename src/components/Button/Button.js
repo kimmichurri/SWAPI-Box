@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Button = ({ getPeople, getPlanets }) => {
+const Button = ({ getPeople, getPlanets, getVehicles }) => {
 
         return (
             <div>
                 <button onClick={getPeople} className="card-category-buttons">people</button>
                 <button onClick={getPlanets} className="card-category-buttons">planets</button>
-                <button className="card-category-buttons">vehicles</button>
+                <button onClick={getVehicles} className="card-category-buttons">vehicles</button>
             </div>
         )
 }
