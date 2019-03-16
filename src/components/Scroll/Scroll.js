@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function Scroll({ openingFilm }) {
-    console.log(openingFilm)
     return (
         <section className="scroll-container">
             <div className="scroll">
