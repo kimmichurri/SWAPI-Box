@@ -43,13 +43,11 @@ const residentUrls = (urls) => {
         return fetchAnything(url)
         .then(residents => (residents.name))
     })
-    console.log('unresolved residents', Promise.all(unresolvedResidents))
     return Promise.all(unresolvedResidents)
 }
 
 const planetCleaner = (compiledData) => {
     let cleaned = compiledData.map((planet) => {
-        console.log('planet')
         return {
             name: planet.name,
             terrain: planet.terrain,
@@ -59,8 +57,23 @@ const planetCleaner = (compiledData) => {
             favorite: false
         }
     })
-    console.log('clean planet', cleaned)
+    console.log(Promise.all(cleaned))
     return Promise.all(cleaned)
 }
 
-export { peopleCleaner, findHomeworld, findSpecies, findResidents, planetCleaner, residentUrls }
+const vehicleCleaner = (vehicleInfo) => {
+    console.log('in vehicle')
+    let cleaned = vehicleInfo.map((vehicle) => {
+        return {
+            name: vehicle.name,
+            model: vehicle.model,
+            class: vehicle.vehicle_class,
+            passengers: vehicle.passengers,
+            favorite: false
+        }
+    })
+    console.log(Promise.all(cleaned))
+    return Promise.all(cleaned)
+}
+
+export { peopleCleaner, findHomeworld, findSpecies, findResidents, planetCleaner, residentUrls, vehicleCleaner }
