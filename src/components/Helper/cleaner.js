@@ -17,7 +17,6 @@ const findSpecies = (individualPeople) => {
 }
 
 const peopleCleaner = (compiledData) => {
-    console.log('compiled data', compiledData)
     let cleaned = compiledData.map((person) => {
         return {
             name: person.name,
@@ -28,22 +27,27 @@ const peopleCleaner = (compiledData) => {
             favorite: false
         }
     })
-    console.log('cleaned', cleaned)
     return cleaned;
 }
 
 const findResidents = (individualPlanets) => {
-    console.log('findResidents')
     const unresolvedPlanets = individualPlanets.map((planet) => {
-        return fetchAnything(planet.residents)
-            .then(residents => ({...planet, residents: residents.name}))
+        return residentUrls(planet.residents)
+            .then(residents => ({...planet, residents}))
     })
-    console.log(Promise.all(unresolvedPlanets))
     return Promise.all(unresolvedPlanets)
 }
 
+const residentUrls = (urls) => {
+    const unresolvedResidents = urls.map((url) => {
+        return fetchAnything(url)
+        .then(residents => (residents.name))
+    })
+    console.log('unresolved residents', Promise.all(unresolvedResidents))
+    return Promise.all(unresolvedResidents)
+}
+
 const planetCleaner = (compiledData) => {
-    console.log('planetCleaner', compiledData)
     let cleaned = compiledData.map((planet) => {
         console.log('planet')
         return {
@@ -59,4 +63,4 @@ const planetCleaner = (compiledData) => {
     return Promise.all(cleaned)
 }
 
-export { peopleCleaner, findHomeworld, findSpecies, findResidents, planetCleaner }
+export { peopleCleaner, findHomeworld, findSpecies, findResidents, planetCleaner, residentUrls }
