@@ -6,7 +6,7 @@ import Button from '../Button/Button';
 import Scroll from '../Scroll/Scroll';
 import CardContainer from '../CardContainer/CardContainer';
 import { fetchAnything } from '../Helper/fetchAnything';
-import { peopleCleaner, findHomeworld, findSpecies, findResidents, planetCleaner } from '../Helper/cleaner';
+import { peopleCleaner, findHomeworld, findSpecies, findResidents, planetCleaner, residentUrls } from '../Helper/cleaner';
 
 class App extends Component {
   constructor() {
