@@ -6,7 +6,7 @@ import Button from '../Button/Button';
 import Scroll from '../Scroll/Scroll';
 import CardContainer from '../CardContainer/CardContainer';
 import { fetchAnything } from '../Helper/fetchAnything';
-import { peopleCleaner, findHomeworld, findSpecies, findResidents, planetCleaner, residentUrls } from '../Helper/cleaner';
+import { peopleCleaner, findHomeworld, findSpecies, findResidents, planetCleaner, vehicleCleaner } from '../Helper/cleaner';
 
 class App extends Component {
   constructor() {
@@ -49,7 +49,6 @@ class App extends Component {
   }
 
   getPlanets = () => {
-    console.log('get planets')
     const url = 'https://swapi.co/api/planets/'
       fetchAnything(url)
       .then(data => findResidents(data.results))
@@ -57,15 +56,22 @@ class App extends Component {
       .then(cleanPlanets => this.setState({planets: cleanPlanets}))
   }
 
+  getVehicles = () => {
+    const url = 'https://swapi.co/api/vehicles/'
+    fetchAnything(url)
+      .then(data => vehicleCleaner(data.results))
+      .then(cleanVehicles => this.setState({vehicles: cleanVehicles}))
+  }
+
   render() {
-    const { openingFilm, people, planets } = this.state
+    const { openingFilm, people, planets, vehicles } = this.state
     return (
       <div className="app">
           <Favorite />
           <Header />
-          <Button getPeople={this.getPeople} getPlanets={this.getPlanets}/>
+          <Button getPeople={this.getPeople} getPlanets={this.getPlanets} getVehicles={this.getVehicles}/>
           <Scroll openingFilm={openingFilm}/>
-          <CardContainer people={people} planets={planets}/>
+          <CardContainer people={people} planets={planets} vehicles={vehicles}/>
       </div>
     );
   }
