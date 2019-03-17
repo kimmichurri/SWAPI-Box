@@ -1,9 +1,35 @@
 .individual-card {
     background-color: $card-color;
-    border: 2px solid $card-color;
     border-radius: 4px;
+    box-shadow: $card-box-shadow 5px 5px 20px;
     color: $white;
     height: 400px;
     margin: 20px;
     width: 350px;
+}
+
+.card-title {
+    background-color: $dark-blue-active;
+    box-shadow: black 1px 0px 2px;
+    display: flex;
+    font-size: 1.5em;
+    justify-content: space-between;
+    margin: 0px;
+    padding: 20px;
+}
+
+.favorite-icon {
+    width: 50px;
+    &:hover {
+        transform: rotate(72deg);
+        transition: .75s;
+    }
+}
+
+.favorite-container {
+    background-color: $dark-blue-active;
+    border: none;
+        &:hover {
+            cursor: pointer;
+        }
 }
