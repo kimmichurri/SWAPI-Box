@@ -26,7 +26,7 @@ class App extends Component {
 
   componentDidMount() {
     const url = `https://swapi.co/api/films/${this.randomFilmNumber()}`;
-    fetchAnything(url)
+    return fetchAnything(url)
       .then(selectedFilm => this.firstFilm(selectedFilm))
   }
 
@@ -43,7 +43,7 @@ class App extends Component {
   getPeople = () => { 
     this.setState({ loading: true })
     const url = 'https://swapi.co/api/people'
-      fetchAnything(url)
+      return fetchAnything(url)
       .then(data => findHomeworld(data.results))
       .then(uniquePeople => findSpecies(uniquePeople))
       .then(getCleanedPeople => peopleCleaner(getCleanedPeople))
@@ -53,7 +53,7 @@ class App extends Component {
   getPlanets = () => {
     this.setState({ loading: true })
     const url = 'https://swapi.co/api/planets/'
-      fetchAnything(url)
+      return fetchAnything(url)
       .then(data => findResidents(data.results))
       .then(getCleanedPlanets => planetCleaner(getCleanedPlanets))
       .then(cleanPlanets => this.setState({selectedCards: cleanPlanets, loading: false}))
@@ -62,7 +62,7 @@ class App extends Component {
   getVehicles = () => {
     this.setState({ loading: true })
     const url = 'https://swapi.co/api/vehicles/'
-    fetchAnything(url)
+    return fetchAnything(url)
       .then(data => vehicleCleaner(data.results))
       .then(cleanVehicles => this.setState({selectedCards: cleanVehicles , loading: false}))
   }
