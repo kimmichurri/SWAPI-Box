@@ -1,13 +1,14 @@
 import React from 'react';
 import Card from '../Card/Card';
 
-export default function CardContainer({ people }) {
-    const displayPeopleCards = people.map((person) => (
-        <Card key={person.name} {...person} />
+export default function CardContainer({ selectedCards }) {
+    console.log(selectedCards)
+    const displayCards = selectedCards.map((card) => (
+        <Card key={card.name} card={card} />
     ))
     return (
         <div className="card-container">
-            {displayPeopleCards}
+            {displayCards}
         </div>
     )
 }
