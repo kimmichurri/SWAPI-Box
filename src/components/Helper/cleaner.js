@@ -57,7 +57,6 @@ const planetCleaner = (compiledData) => {
             favorite: false
         }
     })
-    console.log(Promise.all(cleaned))
     return Promise.all(cleaned)
 }
 
@@ -72,7 +71,6 @@ const vehicleCleaner = (vehicleInfo) => {
             favorite: false
         }
     })
-    console.log(Promise.all(cleaned))
     return Promise.all(cleaned)
 }
 
