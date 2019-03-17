@@ -7,13 +7,16 @@ import Scroll from '../Scroll/Scroll';
 import CardContainer from '../CardContainer/CardContainer';
 import { fetchAnything } from '../Helper/fetchAnything';
 import { peopleCleaner, findHomeworld, findSpecies, findResidents, planetCleaner, vehicleCleaner } from '../Helper/cleaner';
+import LoadingRequest from '../LoadingRequest/LoadingRequest';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       openingFilm: {},
-      selectedCards: []
+      selectedCards: [],
+      favorites: 0,
+      loading: false
     }
   }
 
@@ -37,37 +40,47 @@ class App extends Component {
     })
   }
 
-  getPeople = () => {
+  getPeople = () => { 
+    this.setState({ loading: true })
     const url = 'https://swapi.co/api/people'
       fetchAnything(url)
       .then(data => findHomeworld(data.results))
       .then(uniquePeople => findSpecies(uniquePeople))
       .then(getCleanedPeople => peopleCleaner(getCleanedPeople))
-      .then(cleanPeople => this.setState({selectedCards: cleanPeople}))
+      .then(cleanPeople => this.setState({selectedCards: cleanPeople, loading: false}))
   }
 
   getPlanets = () => {
+    this.setState({ loading: true })
     const url = 'https://swapi.co/api/planets/'
       fetchAnything(url)
       .then(data => findResidents(data.results))
       .then(getCleanedPlanets => planetCleaner(getCleanedPlanets))
-      .then(cleanPlanets => this.setState({selectedCards: cleanPlanets}))
+      .then(cleanPlanets => this.setState({selectedCards: cleanPlanets, loading: false}))
   }
 
   getVehicles = () => {
+    this.setState({ loading: true })
     const url = 'https://swapi.co/api/vehicles/'
     fetchAnything(url)
       .then(data => vehicleCleaner(data.results))
-      .then(cleanVehicles => this.setState({selectedCards: cleanVehicles}))
+      .then(cleanVehicles => this.setState({selectedCards: cleanVehicles , loading: false}))
   }
 
   render() {
-    const { openingFilm, selectedCards } = this.state
+    const { openingFilm, selectedCards, favorites, loading } = this.state
     return (
       <div className="app">
-          <Favorite />
+          <Favorite favorites={favorites}/>
           <Header />
-          <Button getPeople={this.getPeople} getPlanets={this.getPlanets} getVehicles={this.getVehicles}/>
+          <article className="message-space">
+          {loading ? (
+            <LoadingRequest />
+          ) : (
+            <Button getPeople={this.getPeople} getPlanets={this.getPlanets} getVehicles={this.getVehicles}/>
+          )
+          } 
+          </article>
           {selectedCards.length ? (
             <CardContainer selectedCards={selectedCards}/>
           ) : (
