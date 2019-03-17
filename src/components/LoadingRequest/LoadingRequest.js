@@ -3,7 +3,7 @@ import classic_loading_icon from '../../assets/classic_loading_icon.png';
 
 export default function LoadingRequest() {
     return (
-    <div>
+    <div className="loading-container">
         <img
             className="loading-icon"
             src={classic_loading_icon}
