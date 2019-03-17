@@ -68,8 +68,11 @@ class App extends Component {
           <Favorite />
           <Header />
           <Button getPeople={this.getPeople} getPlanets={this.getPlanets} getVehicles={this.getVehicles}/>
-          <Scroll openingFilm={openingFilm}/>
-          <CardContainer selectedCards={selectedCards}/>
+          {selectedCards.length ? (
+            <CardContainer selectedCards={selectedCards}/>
+          ) : (
+            <Scroll openingFilm={openingFilm}/>
+          )}
       </div>
     );
   }
