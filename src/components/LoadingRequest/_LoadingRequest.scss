@@ -1,4 +1,16 @@
 .loading-text {
-    font-size: 1000px;
-    color: $white;
+    color: white;
+    font-family: $main-font;
+    font-size: 20px;
+}
+
+.loading-icon {
+    animation: spin 2s linear infinite;
+    width: 50px;
+    margin-top: 30px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
