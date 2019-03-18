@@ -5,7 +5,6 @@ import Favorite from '../Favorite/Favorite';
 import Button from '../Button/Button';
 import Scroll from '../Scroll/Scroll';
 import CardContainer from '../CardContainer/CardContainer';
-import { fetchAnything } from '../Helper/fetchAnything';
 import { peopleCleaner, findHomeworld, findSpecies, findResidents, planetCleaner, vehicleCleaner } from '../Helper/cleaner';
 import LoadingRequest from '../LoadingRequest/LoadingRequest';
 
@@ -16,9 +15,22 @@ class App extends Component {
       openingFilm: {},
       selectedCards: [],
       favorites: 0,
-      loading: false
+      loading: false,
+      errorStatus: ''
     }
   }
+
+  fetchAnything = async (url) => { 
+    try {
+        const response = await fetch(url)
+        return response.json()
+    } catch (error) {
+        // throw new Error('Response not okay')
+        this.setState({
+          errorStatus: 'Error fetching data'
+        })
+    }        
+}
 
   randomFilmNumber = () => {
     return Math.floor((Math.random() * 7) + 1);
@@ -26,7 +38,7 @@ class App extends Component {
 
   async componentDidMount() {
     const url = `https://swapi.co/api/films/${this.randomFilmNumber()}`;
-    const selectedFilm = await fetchAnything(url)
+    const selectedFilm = await this.fetchAnything(url)
     console.log(selectedFilm)
     this.firstFilm(selectedFilm)
   }
@@ -44,7 +56,7 @@ class App extends Component {
   getPeople = () => { 
     this.setState({ loading: true })
     const url = 'https://swapi.co/api/people'
-      return fetchAnything(url)
+      return this.fetchAnything(url)
       .then(data => findHomeworld(data.results))
       .then(uniquePeople => findSpecies(uniquePeople))
       .then(getCleanedPeople => peopleCleaner(getCleanedPeople))
@@ -54,7 +66,7 @@ class App extends Component {
   getPlanets = () => {
     this.setState({ loading: true })
     const url = 'https://swapi.co/api/planets/'
-      return fetchAnything(url)
+      return this.fetchAnything(url)
       .then(data => findResidents(data.results))
       .then(getCleanedPlanets => planetCleaner(getCleanedPlanets))
       .then(cleanPlanets => this.setState({selectedCards: cleanPlanets, loading: false}))
@@ -63,7 +75,7 @@ class App extends Component {
   getVehicles = () => {
     this.setState({ loading: true })
     const url = 'https://swapi.co/api/vehicles/'
-    return fetchAnything(url)
+    return this.fetchAnything(url)
       .then(data => vehicleCleaner(data.results))
       .then(cleanVehicles => this.setState({selectedCards: cleanVehicles , loading: false}))
   }
