@@ -53,10 +53,10 @@ class App extends Component {
     })
   }
 
-  getPeople = () => { 
+  getPeople = async () => {
     this.setState({ loading: true })
-    const url = 'https://swapi.co/api/people'
-      return this.fetchAnything(url)
+    const url = 'https://swapi.co/api/people';
+    const selectedPeople = await this.fetchAnything(url)
       .then(data => findHomeworld(data.results))
       .then(uniquePeople => findSpecies(uniquePeople))
       .then(getCleanedPeople => peopleCleaner(getCleanedPeople))
