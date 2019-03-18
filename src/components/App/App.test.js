@@ -1,7 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import App from './App';
 import { shallow } from 'enzyme';
+import { fetchAnything } from '../Helper/fetchAnything';
+
 
 describe('App', () => {
   let mockUrl;
@@ -11,6 +13,9 @@ describe('App', () => {
   let wrapper;
   
   beforeEach(() => {
+
+    
+
     mockUrl = 'www.starwars.com'
     mockFilms = [{ "crawl": "Crawl", "date": "1977", "title": "A New Hope" }, { "crawl": "Crawl", "date": "1983", "title": "Return of the Jedi" }]
     mockFilm = { crawl: "Crawl", date: "1977", title: "A New Hope" }
@@ -28,24 +33,19 @@ describe('App', () => {
  
   });
 
-  it('should call fetchAnything to set openingFilm state', () => {
+  it('should call fetchAnything to set openingFilm state', async () => {
     wrapper = shallow(
       <App />
     )
+    const expectedState = { openingFilm: mockFilm }
+    wrapper.instance().selectedFilm = { openingFilm: mockFilm }
+    // // wrapper.setState({ openingFilm: mockFilm })
+    // wrapper.instance().fetchAnything = jest.fn().mockImplementation(() => {
+    //   return mockFilm })
+    //await wrapper.instance().componentDidMount()
 
-    wrapper.instance().fetchAnything = jest.fn().mockImplementation(() => {
-          return mockFilm})
-
-    // wrapper.instance().fetchAnything = jest.fn()
-    // expect(fetchAnything).toHaveBeenCalled()
-
-
-    
-    expect(wrapper.instance().state).toEqual(mockFilm)
-  })
-
-  it.skip('should set the openingFilm state from an empty object to a film with three properties', () => {
-
+    //expect(wrapper.instance().fetchAnything).toHaveBeenCalled()
+    expect(wrapper.instance().state).toEqual(expectedState)
   })
 
   it.skip('should call fetchAnything with the correct parameters', () => {

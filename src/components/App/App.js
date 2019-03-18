@@ -27,6 +27,7 @@ class App extends Component {
   async componentDidMount() {
     const url = `https://swapi.co/api/films/${this.randomFilmNumber()}`;
     const selectedFilm = await fetchAnything(url)
+    console.log(selectedFilm)
     this.firstFilm(selectedFilm)
   }
 
