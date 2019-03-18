@@ -1,11 +1,10 @@
-const fetchAnything = (url) => {
-    return fetch(url)
-        .then(response => { 
-                if(!response.ok) {
-                    throw new Error('Response not okay')
-                }
-                return response.json()
-            })
+const fetchAnything = async (url) => { 
+    try {
+        const response = await fetch(url)
+        return response.json()
+    } catch (error) {
+        throw new Error('Response not okay')
+    }        
 }
 
 export { fetchAnything } 

@@ -24,17 +24,13 @@ class App extends Component {
     return Math.floor((Math.random() * 7) + 1);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const url = `https://swapi.co/api/films/${this.randomFilmNumber()}`;
-    console.log("wtf")
-    let f = fetchAnything()
-    debugger
-    fetchAnything(url)
-      .then(selectedFilm => this.firstFilm(selectedFilm))
+    const selectedFilm = await fetchAnything(url)
+    this.firstFilm(selectedFilm)
   }
 
   firstFilm = (selectedFilm) => {
-    console.log("is anyone out there")
     this.setState({
       openingFilm: {
         title: selectedFilm.title, 
