@@ -2,7 +2,6 @@ import React from 'react';
 import App from './App';
 import { shallow } from 'enzyme';
 
-
 describe('App', () => {
   let mockUrl;
   let mockFilms;
@@ -14,14 +13,6 @@ describe('App', () => {
     wrapper = shallow(
       <App />
     )
-  
-    mockUrl = 'www.starwars.com'
-    mockFilms = [{ "crawl": "Crawl", "date": "1977", "title": "A New Hope" }, { "crawl": "Crawl", "date": "1983", "title": "Return of the Jedi" }]
-    mockFilm = { crawl: "Crawl", date: "1977", title: "A New Hope" }
-    mockSelectedCards = [
-      { name: 'Endor', population: 30000000, terrain: 'forests, mountains, lakes', climate: 'temperate', residents: 'Wicket Systri Warrick' },
-      { name: 'Bespin', population: 6000000, terrain: 'gas giant', climate: 'temperate', residents: 'Lobot' }
-    ]
   })
 
   it('should match the snapshot', () => {
@@ -41,8 +32,6 @@ describe('App', () => {
   it.skip('should call fetchAnything to set openingFilm state', async () => {
     fetchAnything = jest.fn().mockImplementation(() => {
         return mockFilm })
-    
-    
     const expectedState = { openingFilm: mockFilm }
     wrapper.instance().selectedFilm = { openingFilm: mockFilm }
     // // wrapper.setState({ openingFilm: mockFilm })
@@ -197,10 +186,8 @@ describe('App', () => {
       expect(wrapper.instance().fetchAnything).toHaveBeenCalled()
       expect(wrapper.instance().findHomeworld(mockData.results)).then(() => {
       expect(findSpecies).toHaveBeenCalledWith(mockUniquePeople)
-      //expect to resolve to uniquePeople which is passed into findSpecies
     })
 
-    // expect(wrapper.instance().state).toEqual(expectedResults)
 
 
   })
@@ -219,6 +206,14 @@ describe('App', () => {
     //add errorStatus to state first
     //mock the implementation as rejected
     //when fetch is called expect the error status to be updated with the error message
+  })
+
+  it('getPeople should be called on click', () => {
+    const mockGetPeople = jest.fn();
+    const wrapper = shallow(<Button getPeople={mockGetPeople}/>)
+    wrapper.find('.people').simulate('click');
+    expect(mockGetPeople).toBeCalled();
+    //do this same thing for two other buttons
   })
 
 })
