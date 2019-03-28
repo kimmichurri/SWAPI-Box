@@ -9,12 +9,13 @@ const findHomeworld = async(individualPeople) => {
     return Promise.all(unresolvedPeople)
 }
 
-const findSpecies = (individualPeople) => {
-    const unresolvedSpecies = individualPeople.map((person) => {
-        return fetchAnything(person.species)
-            .then(species => ({...person, species: species.name, language: species.language}))
+const findSpecies = async(individualPeople) => {
+    const unresolvedPeople = individualPeople.map(async(person) => {
+        const speciesInfo = await fetchAnything(person.species)
+        const filteredSpeciesInfo = ({...person, species: speciesInfo.name, language: speciesInfo.language})
+        return filteredSpeciesInfo
     })
-    return Promise.all(unresolvedSpecies);
+    return Promise.all(unresolvedPeople)
 }
 
 const peopleCleaner = (compiledData) => {
@@ -58,7 +59,7 @@ const planetCleaner = (compiledData) => {
             favorite: false
         }
     })
-    return Promise.all(cleaned)
+    return cleaned
 }
 
 const vehicleCleaner = (vehicleInfo) => {
