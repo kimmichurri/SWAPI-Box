@@ -61,7 +61,6 @@ const planetCleaner = (compiledData) => {
 }
 
 const vehicleCleaner = (vehicleInfo) => {
-    console.log('in vehicle')
     let cleaned = vehicleInfo.map((vehicle) => {
         return {
             name: vehicle.name,
