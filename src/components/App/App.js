@@ -20,14 +20,12 @@ class App extends Component {
     }
   }
 
-  fetchAnything = async (url) => { 
+  fetchAnything = async (url) => {
     try {
         const response = await fetch(url)
         return response.json()
     } catch (error) {
-        this.setState({
-          errorStatus: 'There was a problem retrieving the data'
-        })
+        this.setState({errorStatus: 'There was a problem retrieving the data'})
         throw new Error('There was a problem retrieving the data')
     }
 }
@@ -59,7 +57,7 @@ class App extends Component {
       const data = await this.fetchAnything(url)
       const allPeople = await findHomeworld(data.results)
       const withSpecies = await findSpecies(allPeople)
-      const cleanPeopleData = await peopleCleaner(withSpecies)
+      const cleanPeopleData = peopleCleaner(withSpecies)
       this.setState({selectedCards: cleanPeopleData, loading: false})
     } catch(error) {
       this.setState({errorStatus: 'There was a problem retrieving the data'})
@@ -73,7 +71,7 @@ class App extends Component {
       const url = 'https://swapi.co/api/planets/'
       const data = await this.fetchAnything(url)
       const withResidents = await findResidents(data.results)
-      const cleanPlanetData = await planetCleaner(withResidents)
+      const cleanPlanetData = planetCleaner(withResidents)
       this.setState({selectedCards: cleanPlanetData, loading: false})
     } catch(error) {
       this.setState({errorStatus: 'There was a problem retrieving the data'})
@@ -95,7 +93,7 @@ class App extends Component {
   }
 
   render() {
-    const { openingFilm, selectedCards, favorites, loading } = this.state
+    const { openingFilm, selectedCards, favorites, loading, errorStatus } = this.state
     return (
       <div className="app">
           <Favorite favorites={favorites}/>
