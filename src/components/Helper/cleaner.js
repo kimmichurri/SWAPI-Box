@@ -1,11 +1,12 @@
 import { fetchAnything } from './fetchAnything';
 
-const findHomeworld = (individualPeople) => {
-    const unresolvedPeople = individualPeople.map((person) => {
-        return fetchAnything(person.homeworld)
-            .then(homeworld => ({...person, homeworld: homeworld.name, population: homeworld.population}))
+const findHomeworld = async(individualPeople) => {
+    const unresolvedPeople = individualPeople.map(async(person) => {
+        const allHomeworldInfo = await fetchAnything(person.homeworld)
+        const filteredHomeworldInfo = ({...person, homeworld: allHomeworldInfo.name, population: allHomeworldInfo.population})
+        return filteredHomeworldInfo
     })
-    return Promise.all(unresolvedPeople);
+    return Promise.all(unresolvedPeople)
 }
 
 const findSpecies = (individualPeople) => {
