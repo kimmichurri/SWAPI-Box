@@ -81,12 +81,17 @@ class App extends Component {
     }
   }
 
-  getVehicles = () => {
-    this.setState({ loading: true })
-    const url = 'https://swapi.co/api/vehicles/'
-    return this.fetchAnything(url)
-      .then(data => vehicleCleaner(data.results))
-      .then(cleanVehicles => this.setState({selectedCards: cleanVehicles , loading: false}))
+  getVehicles = async () => {
+    this.setState({loading: true})
+    try {
+      const url = 'https://swapi.co/api/vehicles/'
+      const data = await this.fetchAnything(url)
+      const cleanVehicleData = await vehicleCleaner(data.results)
+      this.setState({selectedCards: cleanVehicleData, loading: false})
+    } catch(error) {
+      this.setState({errorStatus: 'There was a problem retrieving the data'})
+      throw new Error('There was a problem retrieving the data')
+    }
   }
 
   render() {
