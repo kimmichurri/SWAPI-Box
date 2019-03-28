@@ -67,13 +67,18 @@ class App extends Component {
     }
   }
 
-  getPlanets = () => {
-    this.setState({ loading: true })
-    const url = 'https://swapi.co/api/planets/'
-      return this.fetchAnything(url)
-      .then(data => findResidents(data.results))
-      .then(getCleanedPlanets => planetCleaner(getCleanedPlanets))
-      .then(cleanPlanets => this.setState({selectedCards: cleanPlanets, loading: false}))
+  getPlanets = async () => {
+    this.setState({loading: true})
+    try {
+      const url = 'https://swapi.co/api/planets/'
+      const data = await this.fetchAnything(url)
+      const withResidents = await findResidents(data.results)
+      const cleanPlanetData = await planetCleaner(withResidents)
+      this.setState({selectedCards: cleanPlanetData, loading: false})
+    } catch(error) {
+      this.setState({errorStatus: 'There was a problem retrieving the data'})
+      throw new Error('There was a problem retrieving the data')
+    }
   }
 
   getVehicles = () => {
