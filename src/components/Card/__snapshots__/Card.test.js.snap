@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card should match the snapshot 1`] = `
+"<div className=\\"individual-card\\">
+  <h3 className=\\"card-title\\">
+    <button className=\\"favorite-container\\">
+      <img className=\\"favorite-icon\\" src=\\"nautical_star.svg\\" alt=\\"black and white nautical star\\" />
+    </button>
+  </h3>
+  <p>
+    Human
+     
+  </p>
+  <p>
+    Earth
+  </p>
+  <p>
+    100
+  </p>
+  <p>
+    Spanish
+  </p>
+  <p>
+    dirt
+  </p>
+  <p>
+    wet
+  </p>
+  <p>
+    me
+  </p>
+  <p>
+    jeep
+  </p>
+  <p>
+    suv
+  </p>
+  <p>
+    4
+  </p>
+</div>"
+`;
