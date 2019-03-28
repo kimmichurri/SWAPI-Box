@@ -2,7 +2,6 @@ import React from 'react';
 import nautical_star from '../../assets/nautical_star.svg';
 
 export default function Card({ card }) {
-    console.log(card)
     return (
         <div className="individual-card">
             <h3 className="card-title">{card.name}
