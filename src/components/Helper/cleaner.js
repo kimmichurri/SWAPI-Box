@@ -41,10 +41,10 @@ const findResidents = async(planets) => {
     return Promise.all(unresolvedResidents)
 }
 
-const residentUrls = (urls) => {
-    const unresolvedResidents = urls.map((url) => {
-        return fetchAnything(url)
-        .then(residents => (residents.name))
+const residentUrls = async (urls) => {
+    const unresolvedResidents = urls.map(async (url) =>{
+        const residents = await fetchAnything(url)
+        return residents.name
     })
     return Promise.all(unresolvedResidents)
 }
