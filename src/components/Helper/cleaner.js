@@ -3,7 +3,7 @@ import { fetchAnything } from './fetchAnything';
 const findHomeworld = async(individualPeople) => {
     const unresolvedPeople = individualPeople.map(async(person) => {
         const allHomeworldInfo = await fetchAnything(person.homeworld)
-        const filteredHomeworldInfo = ({...person, homeworld: allHomeworldInfo.name, population: allHomeworldInfo.population})
+        const filteredHomeworldInfo = {...person, homeworld: allHomeworldInfo.name, population: allHomeworldInfo.population}
         return filteredHomeworldInfo
     })
     return Promise.all(unresolvedPeople)
@@ -12,7 +12,7 @@ const findHomeworld = async(individualPeople) => {
 const findSpecies = async(individualPeople) => {
     const unresolvedPeople = individualPeople.map(async(person) => {
         const speciesInfo = await fetchAnything(person.species)
-        const filteredSpeciesInfo = ({...person, species: speciesInfo.name, language: speciesInfo.language})
+        const filteredSpeciesInfo = {...person, species: speciesInfo.name, language: speciesInfo.language}
         return filteredSpeciesInfo
     })
     return Promise.all(unresolvedPeople)
@@ -32,12 +32,13 @@ const peopleCleaner = (compiledData) => {
     return cleaned;
 }
 
-const findResidents = (individualPlanets) => {
-    const unresolvedPlanets = individualPlanets.map((planet) => {
-        return residentUrls(planet.residents)
-            .then(residents => ({...planet, residents}))
+const findResidents = async(planets) => {
+    const unresolvedResidents = planets.map(async(planet) => {
+        const residentNames = await residentUrls(planet.residents)
+        const compiled = {...planet, residentNames}
+        return compiled
     })
-    return Promise.all(unresolvedPlanets)
+    return Promise.all(unresolvedResidents)
 }
 
 const residentUrls = (urls) => {
@@ -55,7 +56,7 @@ const planetCleaner = (compiledData) => {
             terrain: planet.terrain,
             population: planet.population,
             climate: planet.climate,
-            residents: planet.residents,
+            residents: planet.residentNames,
             favorite: false
         }
     })
