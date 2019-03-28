@@ -25,11 +25,11 @@ class App extends Component {
         const response = await fetch(url)
         return response.json()
     } catch (error) {
-        // throw new Error('Response not okay')
         this.setState({
-          errorStatus: 'Error fetching data'
+          errorStatus: 'There was a problem retrieving the data'
         })
-    }        
+        throw new Error('There was a problem retrieving the data')
+    }
 }
 
   randomFilmNumber = () => {
@@ -39,7 +39,6 @@ class App extends Component {
   async componentDidMount() {
     const url = `https://swapi.co/api/films/${this.randomFilmNumber()}`;
     const selectedFilm = await this.fetchAnything(url)
-    console.log(selectedFilm)
     this.firstFilm(selectedFilm)
   }
 
@@ -54,13 +53,18 @@ class App extends Component {
   }
 
   getPeople = async () => {
-    this.setState({ loading: true })
-    const url = 'https://swapi.co/api/people';
-    const selectedPeople = await this.fetchAnything(url)
-      .then(data => findHomeworld(data.results))
-      .then(uniquePeople => findSpecies(uniquePeople))
-      .then(getCleanedPeople => peopleCleaner(getCleanedPeople))
-      .then(cleanPeople => this.setState({selectedCards: cleanPeople, loading: false}))
+    this.setState({loading: true})
+    try {
+      const url = 'https://swapi.co/api/people';
+      const data = await this.fetchAnything(url)
+      const allPeople = await findHomeworld(data.results)
+      const withSpecies = await findSpecies(allPeople)
+      const cleanPeopleData = await peopleCleaner(withSpecies)
+      this.setState({selectedCards: cleanPeopleData, loading: false})
+    } catch(error) {
+      this.setState({errorStatus: 'There was a problem retrieving the data'})
+      throw new Error('There was a problem retrieving the data')
+    }
   }
 
   getPlanets = () => {
