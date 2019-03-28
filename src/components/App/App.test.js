@@ -32,6 +32,20 @@ describe('App', () => {
     })
   });
 
+  it.skip('firstFilm should set openingFilm state with correct properties', () => {
+    const mockSelectedFilm = {
+      title: 'A New Hope',
+      release_date: 1977,
+      opening_crawl: 'some text'
+    }
+    wrapper.instance().firstFilm(mockSelectedFilm)
+    expect(wrapper.instance().state).toEqual({
+      title: 'A New Hope',
+      date: 1977,
+      crawl: 'some text'
+    })
+  })
+
 
   it('getPeople should be called on click', () => {
     const mockGetPeople = jest.fn();
