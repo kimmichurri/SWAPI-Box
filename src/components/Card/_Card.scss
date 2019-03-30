@@ -32,4 +32,8 @@
         &:hover {
             cursor: pointer;
         }
+        &:active {
+            background-color:yellow;
+            border-radius: 50%;
+        }
 }
