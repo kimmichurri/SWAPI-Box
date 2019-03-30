@@ -60,7 +60,7 @@ const planetCleaner = (compiledData) => {
             favorite: false
         }
     })
-    return cleaned
+    return cleaned;
 }
 
 const vehicleCleaner = (vehicleInfo) => {
@@ -73,7 +73,7 @@ const vehicleCleaner = (vehicleInfo) => {
             favorite: false
         }
     })
-    return Promise.all(cleaned)
+    return cleaned;
 }
 
 export { peopleCleaner, findHomeworld, findSpecies, findResidents, planetCleaner, residentUrls, vehicleCleaner }
