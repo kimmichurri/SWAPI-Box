@@ -7,6 +7,8 @@ import Scroll from '../Scroll/Scroll';
 import CardContainer from '../CardContainer/CardContainer';
 import { peopleCleaner, findHomeworld, findSpecies, findResidents, planetCleaner, vehicleCleaner } from '../Helper/cleaner';
 import LoadingRequest from '../LoadingRequest/LoadingRequest';
+import { connect } from 'react-redux';
+import { hasError } from '../../actions/index';
 
 class App extends Component {
   constructor() {
@@ -16,7 +18,6 @@ class App extends Component {
       selectedCards: [],
       favorites: 0,
       loading: false,
-      errorStatus: ''
     }
   }
 
@@ -25,7 +26,7 @@ class App extends Component {
         const response = await fetch(url)
         return response.json()
     } catch (error) {
-        this.setState({errorStatus: 'There was a problem retrieving the data'})
+        this.props.errorStatus('There was a problem retrieving the data')
         throw new Error('There was a problem retrieving the data')
     }
 }
@@ -60,8 +61,7 @@ class App extends Component {
       const cleanPeopleData = peopleCleaner(withSpecies)
       this.setState({selectedCards: cleanPeopleData, loading: false})
     } catch(error) {
-      this.setState({errorStatus: 'There was a problem retrieving the data'})
-      throw new Error('There was a problem retrieving the data')
+      this.props.hasError('There was a problem retrieving the data')
     }
   }
 
@@ -75,7 +75,6 @@ class App extends Component {
       this.setState({selectedCards: cleanPlanetData, loading: false})
     } catch(error) {
       this.setState({errorStatus: 'There was a problem retrieving the data'})
-      throw new Error('There was a problem retrieving the data')
     }
   }
 
@@ -88,16 +87,18 @@ class App extends Component {
       this.setState({selectedCards: cleanVehicleData, loading: false})
     } catch(error) {
       this.setState({errorStatus: 'There was a problem retrieving the data'})
-      throw new Error('There was a problem retrieving the data')
     }
   }
 
   render() {
-    const { openingFilm, selectedCards, favorites, loading, errorStatus } = this.state
+    const { openingFilm, selectedCards, favorites, loading} = this.state
     return (
       <div className="app">
           <Favorite favorites={favorites}/>
           <Header />
+          {
+            this.props.errorStatus && <p className="error-message">{this.props.errorStatus}</p>
+          }
           <article className="message-space">
           {loading ? (
             <LoadingRequest />
@@ -116,4 +117,12 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  errorStatus : state.errorStatus
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  hasError: (message) => dispatch(hasError(message))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
