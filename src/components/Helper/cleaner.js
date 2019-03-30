@@ -26,7 +26,8 @@ const peopleCleaner = (compiledData) => {
             species: person.species,
             population: person.population,
             language: person.language,
-            favorite: false
+            favorite: false,
+            category: "people"
         }
     })
     return cleaned;
@@ -57,7 +58,8 @@ const planetCleaner = (compiledData) => {
             population: planet.population,
             climate: planet.climate,
             residents: planet.residentNames,
-            favorite: false
+            favorite: false,
+            category: "planets"
         }
     })
     return cleaned;
@@ -70,7 +72,8 @@ const vehicleCleaner = (vehicleInfo) => {
             model: vehicle.model,
             class: vehicle.vehicle_class,
             passengers: vehicle.passengers,
-            favorite: false
+            favorite: false,
+            category: "vehicles"
         }
     })
     return cleaned;
