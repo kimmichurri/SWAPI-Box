@@ -163,13 +163,13 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+export const mapStateToProps = (state) => ({
   errorStatus: state.errorStatus,
   retrievedData: state.retrievedData,
   selectedCards: state.currentCards
 })
 
-const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = (dispatch) => ({
   hasError: (message) => dispatch(hasError(message)),
   updateData: (data) => dispatch(updateData(data)),
   currentCards: (data) => dispatch(currentCards(data))

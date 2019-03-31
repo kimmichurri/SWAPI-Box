@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoadingRequest should match the snapshot 1`] = `
+"<div className=\\"loading-container\\">
+  <img className=\\"loading-icon\\" src=\\"classic_loading_icon.png\\" alt=\\"loading icon, the page is loading\\" />
+  <p className=\\"loading-text\\">
+    Loading...
+  </p>
+</div>"
+`;

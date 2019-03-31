@@ -1,12 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App should match the snapshot 1`] = `
-"<div className=\\"app\\">
-  <Favorite favorites={0} />
-  <Header />
-  <article className=\\"message-space\\">
-    <Button getPeople={[Function]} getPlanets={[Function]} getVehicles={[Function]} />
-  </article>
-  <Scroll openingFilm={{...}} />
-</div>"
+"<ContextConsumer>
+  [function bound indirectRenderWrappedComponent]
+</ContextConsumer>"
 `;

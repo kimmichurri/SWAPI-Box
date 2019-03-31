@@ -4,18 +4,17 @@ import Button from '../Button/Button';
 import { shallow } from 'enzyme';
 
 describe('App', () => {
-  let mockUrl;
-  let mockData;
   let wrapper;
+  let mockErrorStatus;
+  let mockRetrievedData;
+  let mockCurrentCards;
+
+    mockErrorStatus = 'error';
+    mockRetrievedData = [{id: 1}]
+    mockCurrentCards = [{card: 'name'}]
   
   beforeEach(() => {
-    wrapper = shallow(
-      <App />
-    )
-
-    mockData = {
-      film: 'A New Hope'
-    }
+    wrapper = shallow(<App errorStatus={mockErrorStatus} retrievedData={mockRetrievedData} currentCards={mockCurrentCards}/>)
   })
 
   it('should match the snapshot', () => {
@@ -23,29 +22,30 @@ describe('App', () => {
   });
 
   it('should have proper default state', () => {
-    expect(wrapper.instance().state).toEqual({
+    console.log(wrapper.state())
+    const expectedState = {
       openingFilm: {},
-      selectedCards: [],
       favorites: 0,
       loading: false,
-      errorStatus: ''
-    })
+    }
+    expect(wrapper.state()).toEqual(expectedState);
   });
 
-  it.skip('firstFilm should set openingFilm state with correct properties', () => {
-    const mockSelectedFilm = {
-      title: 'A New Hope',
-      release_date: 1977,
-      opening_crawl: 'some text'
-    }
-    wrapper.instance().firstFilm(mockSelectedFilm)
-    expect(wrapper.instance().state).toEqual({
-      title: 'A New Hope',
-      date: 1977,
-      crawl: 'some text'
+  describe('firstFilm', () => {
+    it.skip('firstFilm should set openingFilm state with correct properties', () => {
+      const mockSelectedFilm = {
+        title: 'A New Hope',
+        release_date: 1977,
+        opening_crawl: 'some text'
+      }
+      wrapper.instance().firstFilm(mockSelectedFilm)
+      expect(wrapper.instance().state).toEqual({
+        title: 'A New Hope',
+        date: 1977,
+        crawl: 'some text'
+      })
     })
   })
-
 
   it('getPeople should be called on click', () => {
     const mockGetPeople = jest.fn();
