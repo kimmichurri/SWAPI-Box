@@ -50,34 +50,67 @@ class App extends Component {
     })
   }
 
+  findCategory = (retrievedData, categoryName) => {
+    let existingCategory = retrievedData.find((card) => {
+      return card.category === categoryName
+    })
+    return existingCategory
+  }
+
+  checkStateForExistingData = (retrievedData, categoryName) => {
+    if(retrievedData === undefined) {
+      return false
+    } else if(this.findCategory(retrievedData, categoryName) === undefined) {
+      return false
+    } else {
+      return true
+    }
+  }
+
   getPeople = async () => {
-    this.setState({loading: true})
-    try {
-      const url = 'https://swapi.co/api/people';
-      const data = await this.fetchAnything(url)
-      const allPeople = await findHomeworld(data.results)
-      const withSpecies = await findSpecies(allPeople)
-      const cleanPeopleData = peopleCleaner(withSpecies)
-      this.props.updateData([...this.props.retrievedData, ...cleanPeopleData])
-      this.props.currentCards(cleanPeopleData)
-      this.setState({loading: false})
-    } catch(error) {
-      this.props.hasError('There was a problem retrieving the data')
+    let dataExists = this.checkStateForExistingData(this.props.retrievedData, 'people')
+    if (dataExists) {
+      let cachedPeople = this.props.retrievedData.filter((card) => {
+        return card.category === 'people'
+      })
+      this.props.currentCards(cachedPeople)
+    } else {
+      try {
+        this.setState({loading: true})
+        const url = 'https://swapi.co/api/people';
+        const data = await this.fetchAnything(url)
+        const allPeople = await findHomeworld(data.results)
+        const withSpecies = await findSpecies(allPeople)
+        const cleanPeopleData = peopleCleaner(withSpecies)
+        this.props.updateData([...this.props.retrievedData, ...cleanPeopleData])
+        this.props.currentCards(cleanPeopleData)
+        this.setState({loading: false})
+      } catch(error) {
+        this.props.hasError('There was a problem retrieving the data')
+      }
     }
   }
 
   getPlanets = async () => {
-    this.setState({loading: true})
-    try {
-      const url = 'https://swapi.co/api/planets/'
-      const data = await this.fetchAnything(url)
-      const withResidents = await findResidents(data.results)
-      const cleanPlanetData = planetCleaner(withResidents)
-      this.props.updateData([...this.props.retrievedData, ...cleanPlanetData])
-      this.props.currentCards(cleanPlanetData)
-      this.setState({loading: false})
-    } catch(error) {
-      this.setState({errorStatus: 'There was a problem retrieving the data'})
+    let dataExists = this.checkStateForExistingData(this.props.retrievedData, 'planets')
+    if (dataExists) {
+      let cachedPlanets = this.props.retrievedData.filter((card) => {
+        return card.category === 'planets'
+      })
+      this.props.currentCards(cachedPlanets)
+    } else {
+      try {
+        this.setState({loading: true})
+        const url = 'https://swapi.co/api/planets/'
+        const data = await this.fetchAnything(url)
+        const withResidents = await findResidents(data.results)
+        const cleanPlanetData = planetCleaner(withResidents)
+        this.props.updateData([...this.props.retrievedData, ...cleanPlanetData])
+        this.props.currentCards(cleanPlanetData)
+        this.setState({loading: false})
+      } catch(error) {
+        this.setState({errorStatus: 'There was a problem retrieving the data'})
+      }
     }
   }
 
