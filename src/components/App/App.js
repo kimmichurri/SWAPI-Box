@@ -115,16 +115,24 @@ class App extends Component {
   }
 
   getVehicles = async () => {
-    try {
-      this.setState({loading: true})
-      const url = 'https://swapi.co/api/vehicles/'
-      const data = await this.fetchAnything(url)
-      const cleanVehicleData = await vehicleCleaner(data.results)
-      this.props.updateData([...this.props.retrievedData, ...cleanVehicleData])
-      this.props.currentCards(cleanVehicleData)
-      this.setState({loading: false})
-    } catch(error) {
-      this.props.hasError('There was a problem retrieving the data')
+    let dataExists = this.checkStateForExistingData(this.props.retrievedData, 'vehicles')
+    if (dataExists) {
+      let cachedVehicles = this.props.retrievedData.filter((card) => {
+        return card.category === 'vehicles'
+      })
+      this.props.currentCards(cachedVehicles)
+    } else {
+      try {
+        this.setState({loading: true})
+        const url = 'https://swapi.co/api/vehicles/'
+        const data = await this.fetchAnything(url)
+        const cleanVehicleData = await vehicleCleaner(data.results)
+        this.props.updateData([...this.props.retrievedData, ...cleanVehicleData])
+        this.props.currentCards(cleanVehicleData)
+        this.setState({loading: false})
+      } catch(error) {
+        this.props.hasError('There was a problem retrieving the data')
+      }
     }
   }
 
