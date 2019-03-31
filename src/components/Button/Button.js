@@ -94,7 +94,7 @@ class Button extends Component {
 
      render() {
          return (
-             <div>
+             <div className="buttons-container">
                  <button onClick={this.getPeople} className="card-category-buttons people">people</button>
                  <button onClick={this.getPlanets} className="card-category-buttons planets">planets</button>
                  <button onClick={this.getVehicles} className="card-category-buttons vehicles">vehicles</button>
