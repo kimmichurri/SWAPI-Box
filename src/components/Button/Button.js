@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { peopleCleaner, findHomeworld, findSpecies, findResidents, planetCleaner, vehicleCleaner } from '../Helper/cleaner';
 import { connect } from 'react-redux';
-import { hasError, updateData, currentCards } from '../../actions/index';
+import { hasError, updateData, currentCards, isLoading } from '../../actions/index';
 import { fetchAnything } from '../Helper/fetchAnything';
 
 class Button extends Component {
@@ -36,7 +36,7 @@ class Button extends Component {
       this.props.currentCards(cachedPeople)
     } else {
       try {
-        this.setState({loading: true})
+        this.props.isLoading(true)
         const url = 'https://swapi.co/api/people';
         const data = await fetchAnything(url)
         const allPeople = await findHomeworld(data.results)
@@ -44,7 +44,7 @@ class Button extends Component {
         const cleanPeopleData = peopleCleaner(withSpecies)
         this.props.updateData([...this.props.retrievedData, ...cleanPeopleData])
         this.props.currentCards(cleanPeopleData)
-        this.setState({loading: false})
+        this.props.isLoading(false)
       } catch(error) {
         this.props.hasError('There was a problem retrieving the data')
       }
@@ -60,14 +60,14 @@ class Button extends Component {
       this.props.currentCards(cachedPlanets)
     } else {
       try {
-        this.setState({loading: true})
+        this.props.isLoading(true)
         const url = 'https://swapi.co/api/planets/'
         const data = await fetchAnything(url)
         const withResidents = await findResidents(data.results)
         const cleanPlanetData = planetCleaner(withResidents)
         this.props.updateData([...this.props.retrievedData, ...cleanPlanetData])
         this.props.currentCards(cleanPlanetData)
-        this.setState({loading: false})
+        this.props.isLoading(false)
       } catch(error) {
         this.props.hasError('There was a problem retrieving the data')
       }
@@ -83,13 +83,13 @@ class Button extends Component {
       this.props.currentCards(cachedVehicles)
     } else {
       try {
-        this.setState({loading: true})
+        this.props.isLoading(true)
         const url = 'https://swapi.co/api/vehicles/'
         const data = await fetchAnything(url)
         const cleanVehicleData = await vehicleCleaner(data.results)
         this.props.updateData([...this.props.retrievedData, ...cleanVehicleData])
         this.props.currentCards(cleanVehicleData)
-        this.setState({loading: false})
+        this.props.isLoading(false)
       } catch(error) {
         this.props.hasError('There was a problem retrieving the data')
       }
@@ -112,13 +112,15 @@ class Button extends Component {
 export const mapStateToProps = (state) => ({
     errorStatus: state.errorStatus,
     retrievedData: state.retrievedData,
-    selectedCards: state.currentCards
+    selectedCards: state.currentCards,
+    loading: state.loading
   })
   
   export const mapDispatchToProps = (dispatch) => ({
     hasError: (message) => dispatch(hasError(message)),
     updateData: (data) => dispatch(updateData(data)),
-    currentCards: (data) => dispatch(currentCards(data))
+    currentCards: (data) => dispatch(currentCards(data)),
+    isLoading: (boolean) => dispatch(isLoading(boolean))
   })
   
   export default connect(mapStateToProps, mapDispatchToProps)(Button);

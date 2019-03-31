@@ -13,7 +13,8 @@ export const currentCards = (data) => ({
   data
 })
 
-// export const addFavorite = (name) => ({
-//   type: 'ADD_FAVORITE',
-//   name
-// })
+export const isLoading = (boolean) => ({
+  type: 'IS_LOADING',
+  isLoading: boolean
+})
+

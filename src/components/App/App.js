@@ -7,7 +7,6 @@ import Scroll from '../Scroll/Scroll';
 import CardContainer from '../CardContainer/CardContainer';
 import LoadingRequest from '../LoadingRequest/LoadingRequest';
 import { connect } from 'react-redux';
-import { hasError, updateData, currentCards } from '../../actions/index';
 import { fetchAnything } from '../Helper/fetchAnything';
 
 class App extends Component {
@@ -16,7 +15,6 @@ class App extends Component {
     this.state = {
       openingFilm: {},
       favorites: 0,
-      loading: false,
     }
   }
 
@@ -41,7 +39,7 @@ class App extends Component {
   }
 
   render() {
-    const { openingFilm, favorites, loading} = this.state
+    const { openingFilm, favorites} = this.state
     return (
       <div className="app">
           <Favorite favorites={favorites}/>
@@ -50,7 +48,7 @@ class App extends Component {
             this.props.errorStatus && <p className="error-message">{this.props.errorStatus}</p>
           }
           <article className="message-space">
-          {loading ? (
+          {this.props.loading ? (
             <LoadingRequest />
           ) : (
             <Button />
@@ -69,14 +67,8 @@ class App extends Component {
 
 export const mapStateToProps = (state) => ({
   errorStatus: state.errorStatus,
-  retrievedData: state.retrievedData,
-  selectedCards: state.currentCards
+  selectedCards: state.currentCards,
+  loading: state.loading
 })
 
-export const mapDispatchToProps = (dispatch) => ({
-  hasError: (message) => dispatch(hasError(message)),
-  updateData: (data) => dispatch(updateData(data)),
-  currentCards: (data) => dispatch(currentCards(data))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, null)(App);
