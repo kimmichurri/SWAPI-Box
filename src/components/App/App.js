@@ -109,14 +109,14 @@ class App extends Component {
         this.props.currentCards(cleanPlanetData)
         this.setState({loading: false})
       } catch(error) {
-        this.setState({errorStatus: 'There was a problem retrieving the data'})
+        this.props.hasError('There was a problem retrieving the data')
       }
     }
   }
 
   getVehicles = async () => {
-    this.setState({loading: true})
     try {
+      this.setState({loading: true})
       const url = 'https://swapi.co/api/vehicles/'
       const data = await this.fetchAnything(url)
       const cleanVehicleData = await vehicleCleaner(data.results)
@@ -124,7 +124,7 @@ class App extends Component {
       this.props.currentCards(cleanVehicleData)
       this.setState({loading: false})
     } catch(error) {
-      this.setState({errorStatus: 'There was a problem retrieving the data'})
+      this.props.hasError('There was a problem retrieving the data')
     }
   }
 
