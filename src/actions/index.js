@@ -23,3 +23,8 @@ export const loadOpeningFilm = (film) => ({
   film
 })
 
+export const addFavorite = (id) => ({
+  type: 'ADD_FAVORITE',
+  id
+})
+

@@ -12,13 +12,7 @@ import { Route } from 'react-router-dom';
 import { loadOpeningFilm } from '../../actions/index';
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      favorites: 0,
-    }
-  }
-
+  
   randomFilmNumber = () => {
     return Math.floor((Math.random() * 7) + 1);
   }
@@ -38,10 +32,9 @@ class App extends Component {
   }
 
   render() {
-    const { favorites} = this.state
     return (
       <div className="app">
-          <Favorite favorites={favorites}/>
+          <Favorite />
           <Header />
           {
             this.props.errorStatus && <p className="error-message">{this.props.errorStatus}</p>
