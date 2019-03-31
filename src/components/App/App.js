@@ -9,12 +9,13 @@ import LoadingRequest from '../LoadingRequest/LoadingRequest';
 import { connect } from 'react-redux';
 import { fetchAnything } from '../Helper/fetchAnything';
 import { Route } from 'react-router-dom';
+import { loadOpeningFilm } from '../../actions/index';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      openingFilm: {},
+      // openingFilm: {},
       favorites: 0,
     }
   }
@@ -30,17 +31,15 @@ class App extends Component {
   }
 
   firstFilm = (selectedFilm) => {
-    this.setState({
-      openingFilm: {
+    this.props.loadOpeningFilm({
         title: selectedFilm.title, 
         date: selectedFilm.release_date,
         crawl: selectedFilm.opening_crawl
-      }
     })
   }
 
   render() {
-    const { openingFilm, favorites} = this.state
+    const { favorites} = this.state
     return (
       <div className="app">
           <Favorite favorites={favorites}/>
@@ -54,7 +53,7 @@ class App extends Component {
           {this.props.selectedCards.length ? (
             <CardContainer cards={this.props.selectedCards}/>
               ) : ( 
-            <Scroll openingFilm={openingFilm}/>
+            <Scroll openingFilm={this.props.openingFilm}/>
            )} 
       </div>
     );
@@ -64,7 +63,12 @@ class App extends Component {
 export const mapStateToProps = (state) => ({
   errorStatus: state.errorStatus,
   selectedCards: state.currentCards,
-  loading: state.loading
+  loading: state.loading,
+  openingFilm: state.openingFilm
 })
 
-export default connect(mapStateToProps, null)(App);
+export const mapDispatchToProps = (dispatch) => ({
+  loadOpeningFilm: (randomFilm) => dispatch(loadOpeningFilm(randomFilm)) 
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

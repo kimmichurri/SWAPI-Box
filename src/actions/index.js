@@ -18,3 +18,8 @@ export const isLoading = (boolean) => ({
   isLoading: boolean
 })
 
+export const loadOpeningFilm = (film) => ({
+  type: 'LOAD_OPENING_FILM',
+  film
+})
+
