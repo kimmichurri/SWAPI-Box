@@ -43,7 +43,7 @@ class App extends Component {
           {this.props.loading ? <LoadingRequest /> : <Route exact path='/' component={Button} /> }
           </article>
           {this.props.selectedCards.length ? (
-            <CardContainer cards={this.props.selectedCards}/>
+            <CardContainer />
               ) : ( 
             <Scroll openingFilm={this.props.openingFilm}/>
            )} 
