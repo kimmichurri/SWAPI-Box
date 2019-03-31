@@ -5,10 +5,6 @@ import { hasError, updateData, currentCards, isLoading } from '../../actions/ind
 import { fetchAnything } from '../Helper/fetchAnything';
 
 class Button extends Component {
-     constructor() {
-         super();
-     }
-
 
   findCategory = (retrievedData, categoryName) => {
     let existingCategory = retrievedData.find((card) => {

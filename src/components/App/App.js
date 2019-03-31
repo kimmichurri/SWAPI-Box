@@ -8,6 +8,7 @@ import CardContainer from '../CardContainer/CardContainer';
 import LoadingRequest from '../LoadingRequest/LoadingRequest';
 import { connect } from 'react-redux';
 import { fetchAnything } from '../Helper/fetchAnything';
+import { Route } from 'react-router-dom';
 
 class App extends Component {
   constructor() {
@@ -48,12 +49,7 @@ class App extends Component {
             this.props.errorStatus && <p className="error-message">{this.props.errorStatus}</p>
           }
           <article className="message-space">
-          {this.props.loading ? (
-            <LoadingRequest />
-          ) : (
-            <Button />
-          )
-          }  
+          {this.props.loading ? <LoadingRequest /> : <Route exact path='/' component={Button} /> }
           </article>
           {this.props.selectedCards.length ? (
             <CardContainer cards={this.props.selectedCards}/>
