@@ -36,17 +36,12 @@ class App extends Component {
       <div className="app">
           <Favorite />
           <Header />
-          {
-            this.props.errorStatus && <p className="error-message">{this.props.errorStatus}</p>
-          }
+          <Button />
           <article className="message-space">
-          {this.props.loading ? <LoadingRequest /> : <Route exact path='/' component={Button} /> }
+          {this.props.errorStatus && <p className="error-message">{this.props.errorStatus}</p>}
+          {this.props.loading && <LoadingRequest />}
           </article>
-          {this.props.selectedCards.length ? (
-            <CardContainer />
-              ) : ( 
-            <Scroll openingFilm={this.props.openingFilm}/>
-           )} 
+          {!this.props.selectedCards.length ? <Route exact path='/' component={Scroll} /> : <Route exact path='/' component={CardContainer} />}
       </div>
     );
   }
@@ -55,8 +50,7 @@ class App extends Component {
 export const mapStateToProps = (state) => ({
   errorStatus: state.errorStatus,
   selectedCards: state.currentCards,
-  loading: state.loading,
-  openingFilm: state.openingFilm
+  loading: state.loading
 })
 
 export const mapDispatchToProps = (dispatch) => ({
