@@ -112,8 +112,8 @@ class App extends Component {
           )
           }  
           </article>
-          {this.props.retrievedData.length ? (
-            <CardContainer cards={this.props.retrievedData}/>
+          {this.props.selectedCards.length ? (
+            <CardContainer cards={this.props.selectedCards}/>
               ) : ( 
             <Scroll openingFilm={openingFilm}/>
            )} 
@@ -125,7 +125,7 @@ class App extends Component {
 const mapStateToProps = (state) => ({
   errorStatus: state.errorStatus,
   retrievedData: state.retrievedData,
-  currentCards: state.currentCards
+  selectedCards: state.currentCards
 })
 
 const mapDispatchToProps = (dispatch) => ({
