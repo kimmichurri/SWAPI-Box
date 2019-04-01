@@ -37,7 +37,7 @@ it('if response is not okay show error', () => {
     }));
     fetchAnything(mockUrl)
         .catch(error => {
-            expect(error.message).toBe('Response not okay')
+            expect(error.message).toBe('There was a problem retrieving the data')
         })
     });
 });
