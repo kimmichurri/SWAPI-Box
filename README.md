@@ -16,6 +16,8 @@ Run npm start and visit localhost:3000 in your browser
 
 ![2019-04-01 08 37 03](https://user-images.githubusercontent.com/43019784/55501338-6f164100-5607-11e9-8456-102d18f10e3c.gif)
 
+![2019-04-03 12 01 00](https://user-images.githubusercontent.com/43019784/55501743-4b072f80-5608-11e9-9f8b-84a9af127244.gif)
+
 ## Technologies
 
 Fetch API  
