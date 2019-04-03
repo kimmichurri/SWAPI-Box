@@ -12,6 +12,10 @@ Clone this repo
 Run npm install from the root directory  
 Run npm start and visit localhost:3000 in your browser  
 
+## See it
+
+[SWAPI gif](https://github.com/kimmichurri/SWAPI-Box/blob/master/src/assets/SWAPI.gif)
+
 ## Technologies
 
 Fetch API  
