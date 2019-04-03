@@ -14,7 +14,7 @@ Run npm start and visit localhost:3000 in your browser
 
 ## See it
 
-[SWAPI gif](https://github.com/kimmichurri/SWAPI-Box/blob/master/src/assets/SWAPI.gif)
+![2019-04-01 08 37 03](https://user-images.githubusercontent.com/43019784/55501338-6f164100-5607-11e9-8456-102d18f10e3c.gif)
 
 ## Technologies
 
